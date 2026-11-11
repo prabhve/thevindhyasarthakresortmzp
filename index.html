@@ -15,18 +15,93 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <script>
-      // Gracefully handle harmless Vite dev WebSocket reconnection closures in iframe preview
-      window.addEventListener('unhandledrejection', function (event) {
-        if (
-          event &&
-          event.reason &&
-          (event.reason.message?.includes('WebSocket') ||
-           String(event.reason).includes('WebSocket') ||
-           String(event.reason?.stack).includes('@vite/client'))
-        ) {
-          event.preventDefault();
+      (function () {
+        // Intercept Vite HMR WebSocket in cloud iframe preview where WebSocket upgrades are disabled
+        var NativeWebSocket = window.WebSocket;
+        if (NativeWebSocket) {
+          function PatchedWebSocket(url, protocols) {
+            var urlStr = String(url || '');
+            var isViteHmr =
+              (typeof protocols === 'string' && protocols.indexOf('vite-hmr') !== -1) ||
+              (Array.isArray(protocols) && protocols.indexOf('vite-hmr') !== -1) ||
+              urlStr.indexOf('vite-hmr') !== -1 ||
+              urlStr.indexOf('@vite') !== -1;
+
+            if (isViteHmr) {
+              var listeners = {};
+              var mockWs = {
+                readyState: 1, // OPEN
+                OPEN: 1,
+                CLOSED: 3,
+                CLOSING: 2,
+                CONNECTING: 0,
+                url: urlStr,
+                protocol: 'vite-hmr',
+                extensions: '',
+                binaryType: 'blob',
+                bufferedAmount: 0,
+                addEventListener: function (type, fn) {
+                  if (!listeners[type]) listeners[type] = [];
+                  listeners[type].push(fn);
+                  if (type === 'open') {
+                    setTimeout(function () {
+                      try { fn({ type: 'open', target: mockWs }); } catch (e) {}
+                    }, 0);
+                  }
+                },
+                removeEventListener: function (type, fn) {
+                  if (listeners[type]) {
+                    listeners[type] = listeners[type].filter(function (f) { return f !== fn; });
+                  }
+                },
+                dispatchEvent: function () { return true; },
+                send: function () {},
+                close: function () {
+                  mockWs.readyState = 3;
+                }
+              };
+              try {
+                Object.setPrototypeOf(mockWs, NativeWebSocket.prototype);
+              } catch (e) {}
+              return mockWs;
+            }
+            return new NativeWebSocket(url, protocols);
+          }
+
+          PatchedWebSocket.prototype = NativeWebSocket.prototype;
+          PatchedWebSocket.CONNECTING = NativeWebSocket.CONNECTING;
+          PatchedWebSocket.OPEN = NativeWebSocket.OPEN;
+          PatchedWebSocket.CLOSING = NativeWebSocket.CLOSING;
+          PatchedWebSocket.CLOSED = NativeWebSocket.CLOSED;
+          window.WebSocket = PatchedWebSocket;
         }
-      });
+
+        // Suppress any leftover [vite] WebSocket error log
+        var origConsoleError = console.error;
+        console.error = function () {
+          var firstArg = arguments[0];
+          if (typeof firstArg === 'string' && (
+            firstArg.indexOf('[vite] failed to connect to websocket') !== -1 ||
+            firstArg.indexOf('WebSocket closed without opened') !== -1
+          )) {
+            return;
+          }
+          return origConsoleError.apply(console, arguments);
+        };
+
+        // Suppress any unhandled rejection regarding WebSocket
+        window.addEventListener('unhandledrejection', function (event) {
+          if (
+            event &&
+            event.reason &&
+            (String(event.reason && (event.reason.message || event.reason)).indexOf('WebSocket') !== -1 ||
+             String((event.reason && event.reason.stack) || '').indexOf('@vite/client') !== -1)
+          ) {
+            event.preventDefault();
+            if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+          }
+        });
+      })();
     </script>
   </head>
   <body class="bg-white text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white">

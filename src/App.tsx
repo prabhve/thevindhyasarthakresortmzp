@@ -19,6 +19,8 @@ import { FloatingActions } from './components/FloatingActions';
 
 import { ScrollReveal } from './components/ScrollReveal';
 import { MotionConfig } from 'motion/react';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 export default function App() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
@@ -160,6 +162,10 @@ export default function App() {
         onOpenConcierge={() => setConciergeOpen(true)}
         onOpenBooking={() => handleOpenBooking()}
       />
+
+      {/* Vercel Web Analytics & Speed Insights */}
+      <Analytics />
+      <SpeedInsights />
 
       </div>
     </MotionConfig>
