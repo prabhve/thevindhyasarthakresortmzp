@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Vindhyasarthak Resort & Banquet</title>
+    <meta name="description" content="Luxury resort and banquet nestled amidst nature and hill views in Mirzapur, offering deluxe rooms, royal wedding banquets, multicuisine dining, and guided tours." />
+    <meta property="og:title" content="The Vindhyasarthak Resort & Banquet" />
+    <meta property="og:description" content="Luxury resort and banquet nestled amidst nature and hill views in Mirzapur, offering deluxe rooms, royal wedding banquets, multicuisine dining, and guided tours." />
+    <meta property="og:image" content="/image/ResortLogo.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href="/image/ResortLogo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      // Gracefully handle harmless Vite dev WebSocket reconnection closures in iframe preview
+      window.addEventListener('unhandledrejection', function (event) {
+        if (
+          event &&
+          event.reason &&
+          (event.reason.message?.includes('WebSocket') ||
+           String(event.reason).includes('WebSocket') ||
+           String(event.reason?.stack).includes('@vite/client'))
+        ) {
+          event.preventDefault();
+        }
+      });
+    </script>
+  </head>
+  <body class="bg-white text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

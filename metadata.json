@@ -1,0 +1,7 @@
+{
+  "name": "The Vindhyasarthak Resort & Banquet",
+  "description": "Luxury resort and banquet nestled amidst nature and hill views in Mirzapur, offering deluxe rooms, royal wedding banquets, multicuisine dining, and guided tours.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
