@@ -60,25 +60,25 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="sm:hidden fixed bottom-20 right-4 z-40 p-2.5 rounded-full bg-neutral-900/90 text-amber-400 border border-neutral-700 shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+          className="sm:hidden fixed bottom-18 right-4 z-40 p-2.5 rounded-full bg-neutral-900/90 text-amber-400 border border-neutral-700 shadow-xl backdrop-blur-md transition-all active:scale-95 cursor-pointer"
           aria-label="Scroll to top"
         >
           <ChevronUp className="w-4 h-4" />
         </button>
       )}
 
-      {/* Mobile Bottom Action Bar: Clean white background, 3 well & equally adjusted actions */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/98 backdrop-blur-md border-t border-neutral-200 px-3 py-2 shadow-2xl safe-area-bottom">
-        <div className="max-w-md mx-auto flex items-center justify-between gap-2.5">
+      {/* Mobile Bottom Action Bar: Balanced, natural & clean layout */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/98 backdrop-blur-md border-t border-neutral-200 px-4 py-2 shadow-xl safe-area-bottom">
+        <div className="max-w-md mx-auto flex items-center justify-between gap-3">
           
           {/* Action 1: Call 24/7 */}
           <a
             href={`tel:${RESORT_INFO.phones[0]}`}
-            className="flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-neutral-700 hover:bg-neutral-100 active:bg-neutral-100 transition-colors"
+            className="flex-1 flex flex-col items-center justify-center py-1 rounded-lg text-neutral-700 hover:text-neutral-950 active:scale-95 transition-all"
             aria-label="Call resort front desk"
           >
-            <Phone className="w-5 h-5 text-amber-600 mb-0.5" />
-            <span className="text-[11px] font-semibold text-neutral-800 whitespace-nowrap">Call 24/7</span>
+            <Phone className="w-5 h-5 text-amber-600 mb-1" />
+            <span className="text-[11px] font-semibold text-neutral-700 whitespace-nowrap">Call 24/7</span>
           </a>
 
           {/* Action 2: WhatsApp */}
@@ -86,14 +86,14 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
             href={`https://wa.me/${RESORT_INFO.whatsapp}?text=${encodeURIComponent(RESORT_INFO.whatsappMessage)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-neutral-700 hover:bg-neutral-100 active:bg-neutral-100 transition-colors"
+            className="flex-1 flex flex-col items-center justify-center py-1 rounded-lg text-neutral-700 hover:text-neutral-950 active:scale-95 transition-all"
             aria-label="Chat on WhatsApp"
           >
-            <MessageCircle className="w-5 h-5 text-emerald-600 mb-0.5" />
-            <span className="text-[11px] font-semibold text-neutral-800 whitespace-nowrap">WhatsApp</span>
+            <MessageCircle className="w-5 h-5 text-emerald-600 mb-1" />
+            <span className="text-[11px] font-semibold text-neutral-700 whitespace-nowrap">WhatsApp</span>
           </a>
 
-          {/* Action 3: Book Stay (Well proportioned, solid black rounded button, never truncated) */}
+          {/* Action 3: Book Stay */}
           <button
             onClick={onOpenBooking}
             className="flex-[1.4] h-10 px-4 bg-neutral-950 hover:bg-neutral-800 active:bg-black text-white font-bold text-xs rounded-xl shadow-sm flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 whitespace-nowrap"
