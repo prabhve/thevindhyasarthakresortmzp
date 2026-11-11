@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { RESORT_INFO, ROOMS } from '../data/resortData';
-import { Play, Pause, Volume2, VolumeX, Calendar, ArrowRight, ShieldCheck, MapPin, Users, Sparkles } from 'lucide-react';
+import { Play, Pause, Calendar, ArrowRight, ShieldCheck, MapPin, Users, Sparkles } from 'lucide-react';
 
 interface HeroSectionProps {
   onOpenBooking: (roomId?: string, dates?: { checkIn: string; checkOut: string; guests: number }) => void;
@@ -12,7 +12,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking, currenc
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
 
   // Quick search state
   const today = new Date().toISOString().split('T')[0];
@@ -30,13 +29,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking, currenc
         videoRef.current.play();
       }
       setIsPlaying(!isPlaying);
-    }
-  };
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
     }
   };
 
@@ -69,7 +61,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking, currenc
           ref={videoRef}
           autoPlay
           loop
-          muted={isMuted}
+          muted
           playsInline
           poster={RESORT_INFO.media.heroBg}
           className="w-full h-full object-cover opacity-65"
@@ -87,8 +79,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking, currenc
         <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/80 via-neutral-950/40 to-transparent" />
       </motion.div>
 
-      {/* Floating Video Sound & Playback Controls */}
-      <div className="absolute top-6 right-6 z-20 flex items-center gap-2">
+      {/* Floating Video Playback Control */}
+      <div className="absolute top-6 right-6 z-20 flex items-center">
         <button
           onClick={togglePlay}
           className="p-2.5 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-md border border-white/20 transition-all hover:scale-105 cursor-pointer shadow-lg"
@@ -96,14 +88,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenBooking, currenc
           title={isPlaying ? 'Pause Video' : 'Play Video'}
         >
           {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-white" />}
-        </button>
-        <button
-          onClick={toggleMute}
-          className="p-2.5 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-md border border-white/20 transition-all hover:scale-105 cursor-pointer shadow-lg"
-          aria-label={isMuted ? 'Unmute video audio' : 'Mute video audio'}
-          title={isMuted ? 'Unmute Video' : 'Mute Video'}
-        >
-          {isMuted ? <VolumeX className="w-4 h-4 text-neutral-300" /> : <Volume2 className="w-4 h-4 text-amber-400" />}
         </button>
       </div>
 

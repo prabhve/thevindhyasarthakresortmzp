@@ -13,8 +13,6 @@ import { FaqSection } from './components/FaqSection';
 import { ContactLocationSection } from './components/ContactLocationSection';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
-import { AiConciergeModal } from './components/AiConciergeModal';
-import { AssetLibraryModal } from './components/AssetLibraryModal';
 import { FloatingActions } from './components/FloatingActions';
 
 import { ScrollReveal } from './components/ScrollReveal';
@@ -26,8 +24,6 @@ export default function App() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState<string | undefined>(undefined);
   const [bookingDates, setBookingDates] = useState<{ checkIn: string; checkOut: string; guests: number } | undefined>(undefined);
-  const [conciergeOpen, setConciergeOpen] = useState(false);
-  const [assetLibraryOpen, setAssetLibraryOpen] = useState(false);
   const [currency, setCurrency] = useState<'INR' | 'USD'>('INR');
 
   const handleOpenBooking = (
@@ -47,13 +43,11 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="never">
-      <div className="min-h-screen bg-white text-neutral-900 flex flex-col font-sans selection:bg-neutral-950 selection:text-white pb-14 sm:pb-0">
+      <div className="min-h-screen bg-white text-neutral-900 flex flex-col font-sans selection:bg-neutral-950 selection:text-white pb-16 sm:pb-0">
       
       {/* Top Navbar */}
       <Navbar
         onOpenBooking={() => handleOpenBooking()}
-        onOpenConcierge={() => setConciergeOpen(true)}
-        onOpenAssetLibrary={() => setAssetLibraryOpen(true)}
         currency={currency}
         onToggleCurrency={handleToggleCurrency}
       />
@@ -130,8 +124,6 @@ export default function App() {
       <ScrollReveal>
         <Footer
           onOpenBooking={() => handleOpenBooking()}
-          onOpenConcierge={() => setConciergeOpen(true)}
-          onOpenAssetLibrary={() => setAssetLibraryOpen(true)}
         />
       </ScrollReveal>
 
@@ -144,22 +136,8 @@ export default function App() {
         currency={currency}
       />
 
-      {/* AI Concierge Modal */}
-      <AiConciergeModal
-        isOpen={conciergeOpen}
-        onClose={() => setConciergeOpen(false)}
-        onBookRoom={() => handleOpenBooking()}
-      />
-
-      {/* Brand Color Palette & Digital Asset Library Modal */}
-      <AssetLibraryModal
-        isOpen={assetLibraryOpen}
-        onClose={() => setAssetLibraryOpen(false)}
-      />
-
-      {/* Floating Action Buttons (WhatsApp, Call, AI Assistant, Scroll to Top, Mobile Dock) */}
+      {/* Floating Action Buttons & Ultra-Premium Mobile Luxury Dock */}
       <FloatingActions
-        onOpenConcierge={() => setConciergeOpen(true)}
         onOpenBooking={() => handleOpenBooking()}
       />
 

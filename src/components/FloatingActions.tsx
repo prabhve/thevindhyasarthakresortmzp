@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { RESORT_INFO } from '../data/resortData';
-import { MessageCircle, Phone, Sparkles, ChevronUp, Calendar } from 'lucide-react';
+import { MessageCircle, Phone, ChevronUp, Calendar } from 'lucide-react';
 
 interface FloatingActionsProps {
-  onOpenConcierge: () => void;
   onOpenBooking: () => void;
 }
 
-export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenConcierge, onOpenBooking }) => {
+export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking }) => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenConcierg
         {showScrollTop && (
           <button
             onClick={scrollToTop}
-            className="pointer-events-auto p-2.5 rounded-full bg-neutral-900/90 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700/80 shadow-lg backdrop-blur-md transition-all hover:scale-105 cursor-pointer"
+            className="pointer-events-auto p-3 rounded-full bg-neutral-900/95 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700/80 shadow-2xl backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
             aria-label="Scroll to top"
             title="Back to top"
           >
@@ -41,38 +40,23 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenConcierg
           </button>
         )}
 
-        {/* AI Concierge Trigger */}
-        <button
-          onClick={onOpenConcierge}
-          className="pointer-events-auto group flex items-center gap-2.5 px-4 py-2.5 bg-neutral-950/95 hover:bg-neutral-900 border border-amber-400/60 rounded-full shadow-2xl backdrop-blur-md transition-all hover:scale-105 cursor-pointer"
-          title="Open 24/7 AI Resort Concierge"
-        >
-          <div className="w-7 h-7 rounded-full bg-amber-400 text-neutral-950 flex items-center justify-center font-bold shrink-0">
-            <Sparkles className="w-4 h-4 fill-neutral-950" />
-          </div>
-          <div className="text-left pr-1">
-            <span className="text-xs font-bold text-white block leading-none">AI Concierge</span>
-            <span className="text-[10px] text-amber-400">Ask Anything</span>
-          </div>
-        </button>
-
-        {/* Floating WhatsApp Button */}
+        {/* Floating WhatsApp Icon Button */}
         <a
           href={`https://wa.me/${RESORT_INFO.whatsapp}?text=${encodeURIComponent(RESORT_INFO.whatsappMessage)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="pointer-events-auto flex items-center gap-2 p-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white shadow-2xl shadow-emerald-600/40 transition-all hover:scale-110 cursor-pointer"
+          className="pointer-events-auto flex items-center justify-center p-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-2xl shadow-emerald-950/50 transition-all hover:scale-110 active:scale-95 cursor-pointer border border-emerald-400/30"
           aria-label="Chat on WhatsApp"
           title="Instant WhatsApp Support"
         >
-          <MessageCircle className="w-6 h-6 fill-white" />
+          <MessageCircle className="w-6 h-6 fill-white shrink-0" />
         </a>
       </div>
 
       {/* =========================================================================
-          MOBILE PERSISTENT LUXURY DOCK (Optimized for thumb navigation)
+          MOBILE PERSISTENT DOCK (Original clean white luxury style, well-adjusted)
           ========================================================================= */}
-      {/* Mobile Scroll to Top button sitting right above the dock */}
+      {/* Mobile Scroll to Top floating pill */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
@@ -83,46 +67,40 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenConcierg
         </button>
       )}
 
-      {/* Mobile Bottom Action Bar */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-neutral-200 px-3 py-2 shadow-2xl safe-area-bottom">
-        <div className="flex items-center justify-between gap-1.5">
+      {/* Mobile Bottom Action Bar: Clean white background, 3 well & equally adjusted actions */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/98 backdrop-blur-md border-t border-neutral-200 px-3 py-2 shadow-2xl safe-area-bottom">
+        <div className="max-w-md mx-auto flex items-center justify-between gap-2.5">
           
-          {/* Call Desk */}
+          {/* Action 1: Call 24/7 */}
           <a
             href={`tel:${RESORT_INFO.phones[0]}`}
-            className="flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors"
+            className="flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-neutral-700 hover:bg-neutral-100 active:bg-neutral-100 transition-colors"
+            aria-label="Call resort front desk"
           >
-            <Phone className="w-4 h-4 text-amber-600 mb-0.5" />
-            <span className="text-[10px] font-semibold">Call 24/7</span>
+            <Phone className="w-5 h-5 text-amber-600 mb-0.5" />
+            <span className="text-[11px] font-semibold text-neutral-800 whitespace-nowrap">Call 24/7</span>
           </a>
 
-          {/* WhatsApp */}
+          {/* Action 2: WhatsApp */}
           <a
             href={`https://wa.me/${RESORT_INFO.whatsapp}?text=${encodeURIComponent(RESORT_INFO.whatsappMessage)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors"
+            className="flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-neutral-700 hover:bg-neutral-100 active:bg-neutral-100 transition-colors"
+            aria-label="Chat on WhatsApp"
           >
-            <MessageCircle className="w-4 h-4 text-emerald-600 mb-0.5" />
-            <span className="text-[10px] font-semibold">WhatsApp</span>
+            <MessageCircle className="w-5 h-5 text-emerald-600 mb-0.5" />
+            <span className="text-[11px] font-semibold text-neutral-800 whitespace-nowrap">WhatsApp</span>
           </a>
 
-          {/* AI Host */}
-          <button
-            onClick={onOpenConcierge}
-            className="flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors cursor-pointer"
-          >
-            <Sparkles className="w-4 h-4 text-amber-500 mb-0.5" />
-            <span className="text-[10px] font-semibold">AI Host</span>
-          </button>
-
-          {/* Primary Book Stay CTA */}
+          {/* Action 3: Book Stay (Well proportioned, solid black rounded button, never truncated) */}
           <button
             onClick={onOpenBooking}
-            className="flex-[2] py-2 px-3 bg-neutral-950 hover:bg-neutral-800 active:bg-black text-white font-bold text-xs rounded-lg shadow-sm flex items-center justify-center gap-1.5 cursor-pointer min-h-[38px]"
+            className="flex-[1.4] h-10 px-4 bg-neutral-950 hover:bg-neutral-800 active:bg-black text-white font-bold text-xs rounded-xl shadow-sm flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 whitespace-nowrap"
+            aria-label="Book your stay"
           >
-            <Calendar className="w-3.5 h-3.5 text-amber-400" />
-            <span>Book Stay</span>
+            <Calendar className="w-4 h-4 text-amber-400 shrink-0" />
+            <span className="font-bold text-white whitespace-nowrap">Book Stay</span>
           </button>
 
         </div>

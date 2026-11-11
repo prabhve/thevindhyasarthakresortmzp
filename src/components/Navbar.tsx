@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { RESORT_INFO } from '../data/resortData';
-import { Phone, MessageCircle, Menu, X, Calendar, Sparkles } from 'lucide-react';
+import { Phone, MessageCircle, Menu, X, Calendar } from 'lucide-react';
 
 interface NavbarProps {
   onOpenBooking: (roomId?: string) => void;
-  onOpenConcierge: () => void;
-  onOpenAssetLibrary: () => void;
   currency: 'INR' | 'USD';
   onToggleCurrency: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenBooking,
-  onOpenConcierge,
-  onOpenAssetLibrary,
   currency,
   onToggleCurrency,
 }) => {
@@ -60,27 +56,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
-              onClick={onOpenAssetLibrary}
-              className="hidden md:inline-flex items-center gap-1 text-neutral-300 hover:text-amber-400 transition-colors cursor-pointer text-[11px]"
-              title="Inspect Color Palette & Media Assets"
-            >
-              <span>🎨 Palette & Vault</span>
-            </button>
-            <span className="hidden md:inline text-neutral-700">|</span>
-            <button
               onClick={onToggleCurrency}
-              className="text-[11px] text-neutral-300 hover:text-amber-400 font-mono transition-colors cursor-pointer py-0.5 px-1"
+              className="text-[11px] text-neutral-300 hover:text-amber-400 font-mono transition-colors cursor-pointer py-0.5 px-2 rounded bg-neutral-900 border border-neutral-800 hover:border-neutral-700"
               title="Switch INR / USD"
             >
-              <span className="hidden xs:inline">Curr: </span><span className="text-amber-400 font-bold">{currency}</span>
-            </button>
-            <span className="text-neutral-700">|</span>
-            <button
-              onClick={onOpenConcierge}
-              className="inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 font-medium transition-colors cursor-pointer text-[11px] sm:text-xs py-0.5 px-1"
-            >
-              <Sparkles className="w-3 h-3 shrink-0" />
-              <span>AI Host</span>
+              <span className="text-neutral-400">Currency: </span><span className="text-amber-400 font-bold">{currency}</span>
             </button>
           </div>
         </div>
@@ -163,31 +143,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
           <div className="xl:hidden bg-white border-b border-neutral-200 px-4 pt-3 pb-6 space-y-3 shadow-xl animate-in slide-in-from-top duration-200">
-            <div className="grid grid-cols-3 gap-2 pb-3 border-b border-neutral-100 text-xs">
+            <div className="flex items-center justify-between pb-3 border-b border-neutral-100 text-xs">
+              <span className="text-neutral-500 font-medium">Front Desk 24/7 Available</span>
               <button
                 onClick={onToggleCurrency}
-                className="py-2 px-2 bg-neutral-100 rounded-lg text-neutral-700 text-center font-mono font-medium"
+                className="py-1.5 px-3 bg-neutral-100 hover:bg-neutral-200 rounded-lg text-neutral-800 text-center font-mono font-medium transition-colors"
               >
-                Curr: <span className="text-neutral-950 font-bold">{currency}</span>
-              </button>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenAssetLibrary();
-                }}
-                className="py-2 px-2 bg-neutral-100 rounded-lg text-neutral-800 font-medium flex items-center justify-center gap-1"
-              >
-                <span>🎨 Palette</span>
-              </button>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenConcierge();
-                }}
-                className="py-2 px-2 bg-amber-50 rounded-lg text-amber-800 font-medium flex items-center justify-center gap-1 border border-amber-200/60"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                <span>AI Host</span>
+                Currency: <span className="text-neutral-950 font-bold">{currency}</span>
               </button>
             </div>
 

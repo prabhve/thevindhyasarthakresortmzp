@@ -4,11 +4,9 @@ import { MapPin, Phone, Mail, MessageCircle, Calendar } from 'lucide-react';
 
 interface FooterProps {
   onOpenBooking: () => void;
-  onOpenConcierge: () => void;
-  onOpenAssetLibrary: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenConcierge, onOpenAssetLibrary }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
   return (
     <footer className="bg-neutral-950 border-t border-neutral-900 text-neutral-400 text-xs">
       
@@ -207,21 +205,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenConcierge, 
             © {new Date().getFullYear()} The Vindhyasarthak Resort Hotel & Banquet. All Rights Reserved.
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            <span className="text-neutral-600">Robertganj Rd, Belahra Mod, Mirzapur - 231001</span>
+            <span className="text-neutral-500">Robertganj Rd, Belahra Mod, Mirzapur - 231001</span>
             <span aria-hidden="true">·</span>
-            <button
-              onClick={onOpenAssetLibrary}
-              className="text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
-            >
-              🎨 Brand Palette & Media Vault
-            </button>
-            <span aria-hidden="true">·</span>
-            <button
-              onClick={onOpenConcierge}
-              className="text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
-            >
-              Ask AI Concierge
-            </button>
+            <a href={`tel:${RESORT_INFO.phones[0]}`} className="hover:text-amber-400 transition-colors">
+              Front Desk: {RESORT_INFO.phones[0]}
+            </a>
           </div>
         </div>
 
