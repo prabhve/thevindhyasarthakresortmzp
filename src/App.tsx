@@ -16,7 +16,7 @@ import { BookingModal } from './components/BookingModal';
 import { FloatingActions } from './components/FloatingActions';
 
 import { ScrollReveal } from './components/ScrollReveal';
-import { MotionConfig } from 'motion/react';
+import { MotionConfig, motion } from 'motion/react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
@@ -43,7 +43,12 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="never">
-      <div className="min-h-screen bg-white text-neutral-900 flex flex-col font-sans selection:bg-neutral-950 selection:text-white pb-16 sm:pb-0">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="min-h-screen bg-white text-neutral-900 flex flex-col font-sans selection:bg-neutral-950 selection:text-white pb-16 sm:pb-0"
+      >
       
       {/* Top Navbar */}
       <Navbar
@@ -145,7 +150,7 @@ export default function App() {
       <Analytics />
       <SpeedInsights />
 
-      </div>
+      </motion.div>
     </MotionConfig>
   );
 }
